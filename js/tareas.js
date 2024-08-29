@@ -7,8 +7,8 @@ botonAgregarTarea.addEventListener('click', agregarTarea);
 entradaBusquedaTarea.addEventListener('input', filtrarTareas);
 entradaTarea.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        event.preventDefault(); // Evita que se realice la acción predeterminada del Enter (por ejemplo, enviar un formulario)
-        agregarTarea(); // Llama a la función de agregar tarea
+        event.preventDefault();
+        agregarTarea(); 
     }
 });
 
