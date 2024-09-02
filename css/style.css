@@ -150,4 +150,10 @@ li span {
     height: 30px; 
 }
 
+.mensaje-error {
+    color: red;
+    font-weight: bold;
+    display: none;
+}
+
 

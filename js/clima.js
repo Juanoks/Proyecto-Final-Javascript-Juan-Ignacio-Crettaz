@@ -1,12 +1,16 @@
 const contenedorClima = document.getElementById('contenedor-clima');
 
-
 function obtenerClima(ciudad = 'Buenos Aires') {
     const apiKey = 'b507dcc2916e4ae383010314242308';
     const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${ciudad}&days=7&lang=es`;
 
     fetch(url)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error al obtener los datos del clima. Verifica el nombre de la ciudad o la conexión.");
+            }
+            return response.json();
+        })
         .then(data => {
             const { location, current, forecast } = data;
             const temperatura = current.temp_c;
@@ -42,10 +46,7 @@ function obtenerClima(ciudad = 'Buenos Aires') {
 
             contenedorClima.innerHTML = html;
 
-
             document.body.classList.remove('soleado', 'nublado', 'lluvioso');
-
-
             if (descripcion.includes('nublado')) {
                 document.body.classList.add('nublado');
             } else if (descripcion.includes('soleado')) {
@@ -58,9 +59,8 @@ function obtenerClima(ciudad = 'Buenos Aires') {
         })
         .catch(error => {
             console.error('Error al obtener el clima:', error);
-            contenedorClima.textContent = 'No se pudo obtener el clima.';
+            contenedorClima.textContent = 'No se pudo obtener el clima. Por favor, intenta nuevamente más tarde.';
         });
 }
-
 
 obtenerClima();
